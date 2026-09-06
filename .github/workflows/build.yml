@@ -24,7 +24,7 @@ jobs:
 
           artifact = Path("dist/catthode.qbtheme")
           assert artifact.is_file() and artifact.stat().st_size > 0
-          assert QResource.registerResource(str(artifact.resolve()))
+          assert QResource.registerResource(str(artifact.resolve()), "/uitheme")
           entries = set(QDir(":/uitheme").entryList())
           assert {"config.json", "stylesheet.qss"}.issubset(entries), entries
           assert QFile(":/uitheme/config.json").size() > 100
@@ -56,7 +56,6 @@ jobs:
             kill "$wm_pid"
             wait "$wm_pid" || true
           '
-          qbittorrent --version
           grep -E 'CustomUIThemePath|UseCustomUITheme' "$HOME/.config/qBittorrent/qBittorrent.conf"
           test -s "$SCREENSHOT_PATH"
           identify -format '%wx%h %k colors, mean=%[fx:mean]\n' "$SCREENSHOT_PATH"
