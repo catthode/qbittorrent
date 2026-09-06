@@ -4,6 +4,8 @@
 
 A warm, high-contrast theme for the cross-platform qBittorrent desktop client.
 
+![Catthode running in qBittorrent](assets/screenshot.png)
+
 ## Installation
 
 1. Download `catthode.qbtheme` from `dist/` or the latest GitHub release.
