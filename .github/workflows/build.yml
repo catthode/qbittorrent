@@ -56,11 +56,14 @@ jobs:
             kill "$wm_pid"
             wait "$wm_pid" || true
           '
+          qbittorrent --version
+          grep -E 'CustomUIThemePath|UseCustomUITheme' "$HOME/.config/qBittorrent/qBittorrent.conf"
           test -s "$SCREENSHOT_PATH"
+          identify -format '%wx%h %k colors, mean=%[fx:mean]\n' "$SCREENSHOT_PATH"
           test "$(identify -format '%k' "$SCREENSHOT_PATH")" -gt 16
           test "$(convert "$SCREENSHOT_PATH" -colorspace gray -format '%[fx:mean<0.55?1:0]' info:)" -eq 1
-          grep -E 'CustomUIThemePath|UseCustomUITheme' "$HOME/.config/qBittorrent/qBittorrent.conf"
       - uses: actions/upload-artifact@v4
+        if: always()
         with:
           name: catthode-qbittorrent
           path: |
